@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["iFoU\/"]); }
+
+__d("cancelAnimationFramePolyfill",[],(function a(b,c,d,e,f,g){var h=b.cancelAnimationFrame&&b.cancelAnimationFrame.nativeBackup||b.cancelAnimationFrame||b.webkitCancelAnimationFrame||b.mozCancelAnimationFrame||b.oCancelAnimationFrame||b.msCancelAnimationFrame||b.clearTimeout;f.exports=h;}),null);

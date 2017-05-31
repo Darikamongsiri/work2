@@ -1,0 +1,62 @@
+<div class="list">
+<div class="bar bar-header bar-positive">
+  <h1 class="title">Gallery</h1>
+  </div>
+
+<div class="list" bar-subheader">
+/n
+ <a  class="item item-thumbnail-left" href="#">
+      <img src="img/1.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a  class="item item-thumbnail-left" href="#">
+      <img src="img/2.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a class="item item-thumbnail-left" href="#">
+      <img src="img/3.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a class="item item-thumbnail-left" href="#">
+      <img src="img/4.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a class="item item-thumbnail-left" href="#">
+      <img src="img/5.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a  class="item item-thumbnail-left" href="#">
+      <img src="img/6.jpg">
+      <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+
+<a  class="item item-thumbnail-left" href="#">
+      <img src="img/7.jpg">
+       <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+	
+
+<a class="item item-thumbnail-left" href="#">
+      <img src="img/7.jpg">
+       <h2>Darika mongsiri</h2>
+      <p>mai</p>
+    </a>
+    
+
+</div>
+<div ui-sref="list" class="bar bar-footer bar-positive">
+  <div class="title">Back</div>
+</div>
+ 
