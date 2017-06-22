@@ -1,10 +1,10 @@
-<div class="list">
+<div class="list1">
 <div class="bar bar-header bar-positive">
   <h1 class="title">Gallery</h1>
   </div>
 
-<div class="list" bar-subheader">
-/n
+<div class="home" bar-subheader">
+
  <a  class="item item-thumbnail-left" href="#">
       <img src="img/1.jpg">
       <h2>Darika mongsiri</h2>
@@ -56,7 +56,7 @@
     
 
 </div>
-<div ui-sref="list" class="bar bar-footer bar-positive">
+<div ui-sref="home" class="bar bar-footer bar-positive">
   <div class="title">Back</div>
 </div>
  

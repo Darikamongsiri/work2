@@ -33,6 +33,6 @@
 
 </div>
 </div>
-<div ui-sref="home" class="bar bar-footer bar-positive">
+<div ui-sref="list1" class="bar bar-footer bar-positive">
   <div class="title">Back</div>
 </div>

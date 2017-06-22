@@ -1,0 +1,25 @@
+<div class="bar bar-header bar-positive">
+  <h1 class="title"> เพิ่มข้อมูล </h1>
+</div>
+<form ng-submit="createAdmin()">
+<div class="list has-subheader">
+  <label class="item item-input">
+    <span class="input-label">Username</span>
+    <input type="text" ng-model="adminData.admin_user">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="adminData.admin_password">
+  </label>
+  <center>
+<button class="button button=-clear button-positive bar-positive" type="submit">>> เพิ่มข้อมูล << </center>
+
+
+</div>
+</center>
+  </form>
+  
+
+<div class="bar bar-footer bar-balanced">
+  <div class="title">Footer</div>
+</div>

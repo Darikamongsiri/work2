@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+
+
+  <title>Document</title>
+  </head>
+ <body>
+ 
+  
+<div class="bar bar-header">
+  
+  <div class="h1 title">Delete Admin</div>
+</div>
+
+<br>
+<br>
+<br>
+
+<form ng-submit="delAdmin()">
+<div class="list">
+<label class="item item-input item-stacked-label">
+    <span class="input-label">ID:</span>
+    <input type="text" placeholder="" ng-model ="adminDel.admin_id">
+  </label>
+ 
+ <center><button class="button button=-clear button-positive">>> Delete << </center>
+</button>
+</div>
+</form>
+</body>
+</html>

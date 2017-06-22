@@ -2,8 +2,8 @@
 <div class="bar bar-header bar-positive">
   <h1 class="title">Gallery</h1>
   </div>
-<br></br>
-<div class="home" bar-subheader">
+
+<div class="list1" bar-subheader">
 
  <a  class="item item-thumbnail-left" href="#">
       <img src="img/1.jpg">

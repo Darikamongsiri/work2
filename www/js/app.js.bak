@@ -17,11 +17,13 @@ angular.module('starter', ['ionic'])
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
+
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
   });
 })
+
 .config(function($stateProvider, $urlRouterProvider){
 
 	$stateProvider
@@ -30,11 +32,11 @@ angular.module('starter', ['ionic'])
         templateUrl: 'templates/manu.html',
 		//controller: 'AppCtrl'
 	})
+		.state('insert',{
+		url: '/insert',
+		templateUrl: 'templates/insert.html',
+	 controller: 'AdminCtrl'
 
-		.state('login', {
-		url: '/login',
-	    templateUrl: 'templates/login.html',
-		controller: 'AppCtrl'
 	})
 
 		.state('history', {
@@ -43,10 +45,15 @@ angular.module('starter', ['ionic'])
 		//controller: 'AppCtrl'
 	})
 
+		.state('home', {
+		url: '/home',
+	    templateUrl: 'templates/home.html',
+		//controller: 'AppCtrl'
+	})
 		.state('list', {
 		url: '/list',
 	    templateUrl: 'templates/list.html',
-		//controller: 'AppCtrl'
+		controller: 'PlaylistCtrl'
 	})
 
 		.state('gallery', {
@@ -54,47 +61,189 @@ angular.module('starter', ['ionic'])
 	    templateUrl: 'templates/gallery.html',
 		//controller: 'AppCtrl'
 	})
+		.state('login', {
+		url: '/login',
+	    templateUrl: 'templates/login.html',
+		controller: 'AppCtrl'
+	})
+		.state('edit_admin', {
+		url: '/edit_admin',
+	    templateUrl: 'templates/edit_admin.html',
+		controller: 'EditAdminCtrl'
+	})
+		.state('del', {
+		url: '/del',
+	    templateUrl: 'templates/del.html',
+		controller: 'editCtrl'
+	})
+
 
 	$urlRouterProvider.otherwise('/login');
 })
 
-.controller('AppCtrl',function ($scope,$state,$ionicPopup){
+.controller('AppCtrl',function ($scope,$state,$ionicPopup,$http,$ionicHistory) {
+  var url="http://localhost/ionic_php/";
+  $scope.login={};
 
-	$scope.login={};
-	var user="admin";
-	var password="123456";
-	$scope.doLogin=function(){
-		console.log("alert");
-		console.log(password);
-		console.log($scope.login.username);
-		console.log($scope.login.password);
-		if ($scope.login.username == 'admin' && $scope.login.password == '123456') {
-		console.log('success');
-		$scope.showAlertSuccess();
-		$state.go('history')
-    }else{
-		console.log('invalid');
-		$scope.showAlertFail();
-		$state.go('login')
-    }
-	};
- 
-  $scope.showAlertFail = function() {
-	   var alertPopup = $ionicPopup.alert({
-		 title: 'Login Fail!',
-		 template: 'Invalid Username and Password '
-	   });
-  };
-$scope.showAlertSuccess = function() {
-	   var alertPopup = $ionicPopup.alert({
-		 title: 'Login Success!',
-		 template: 'Welcome Back: "'+ $scope.login.username + $state.go('history')
-	   });
-	   $scope.modal.hide();
-  };
+ $scope.doLogin=function(){
+      var admin_user=$scope.login.username;
+      var admin_password=$scope.login.password;
+      console.log(admin_user);
+      if(admin_user && admin_password){
+          str=url+"login.php?username="+admin_user+"&password="+admin_password;
+          $http.get(str)
+            .success(function(response){
 
-  
-  //$state.go('history')
-		
-	
+                $scope.admin=response.records;
+                sessionStorage.setItem('loggedin_status',true);
+                sessionStorage.setItem('loggedin_id',$scope.admin.admin_id);
+                sessionStorage.setItem('loggedin_status',$scope.admin.admin_user);
+
+                $ionicHistory.nextViewOptions({
+                  disableAnimate:true,
+                  disableBack:true
+                })
+
+                $ionicPopup.alert({
+                  title:'ล็อกอิน',
+                  template:'ยินดีต้อนรับเข้าสู่ระบบ'
+                })
+
+                $state.go('gallery',{},{location:"replace",reload:true});
+            })
+            .error(function(){
+
+              $ionicPopup.alert({
+                title:'ล็อกอิน',
+                template:'ไม่สามารถล็อกอินได้ กรุณาตรวจสอบ'
+              })
+            });
+
+      }else{
+        $ionicPopup.alert({
+          title:'ล็อกอิน',
+          template:'กรุณากรอกข้อมูลให้ครบ'
+        })
+
+      }
+
+  }
 })
+
+.controller('PlaylistCtrl',function($scope,$http) {
+ 
+    $scope.datalist=[];
+     $scope.url="http://localhost/ionic_php/loaddata.php";
+     $http.get($scope.url)
+		 .success(function(data){
+		 $scope.datalist=data;
+	 })
+		 .error(function(data){
+		 console.log("error");
+});
+})
+.controller('AdminCtrl',function($scope,$http){
+var url="http://localhost/ionic_php/";
+	$scope.Admindata=[];
+	 $scope.createAdmin=function(){
+      var admin_user=$scope.adminData.admin_user;
+      var admin_password=$scope.adminData.admin_password;
+      console.log(admin_user)
+	  str=url+"admin-insert.php?username="+admin_user+"&password="+admin_password;
+       $http.get(str)
+		.success(function(data){
+		if(data==true)
+		console.log("OK");
+	})
+		.error(function(data){
+		console.log("Erorr");
+	});
+	
+	
+	}
+})
+.controller('EditAdminCtrl',function($scope,$http){
+  var url="http://localhost/ionic_php/";
+$scope.EditAdminData=[];
+$scope.editadmin=function(){
+  var admin_id=$scope.EditAdminData.editadmin.id;
+  var admin_user=$scope.EditAdminData.editadmin.username;
+  var admin_password=$scope.EditAdminData.editadmin.password;
+  console.log(admin_user);
+str=url+"admin-edit.php?id="+admin_id+"&username="+ admin_user+"&password="+admin_password;
+$http.get(str)
+.success(function(data){
+  if(data == true){
+    console.log("OK");
+  }
+})
+.error(function(data){
+  console.log("Error");
+});
+}
+})
+
+.controller('PlaylistCtrl',function($scope){
+	$scope.datalist=[
+	{fname:"Mai",lname:"Black",pic:"img/1.jpg"},
+	{fname:"Chelsae",lname:"cfc",pic:"img/2.jpg"},
+	{fname:"Chelsae",lname:"cfc",pic:"img/3.jpg"},
+	{fname:"Chelsae",lname:"cfc",pic:"img/4.jpg"},
+	{fname:"Chelsae",lname:"cfc",pic:"img/5.jpg"}
+
+];
+})
+
+.controller('Ad_delCtrl',function ($scope,$state,$ionicPopup,$http,$ionicHistory) {
+  var url="http://localhost/ionic_php/";
+  $scope.del={};
+
+    $scope.delAdmin=function(){
+    var admin_id = $scope.adminDel.admin_id;
+
+
+
+    if( admin_id ){
+      str= url + "admin-del.php?user=" + admin_id + "&id=" + admin_id;
+
+      $http.get(str)
+      .success(function(response){
+
+        if(response==true){
+
+          $ionicPopup.alert({
+            title:'Deleted Completed',
+            template:' OK Delete'
+          });
+          $state.go('tab.admin',[],{location:"replace",reload:true});
+
+        }else{
+
+          $ionicPopup.alert({
+            title:'Can not delete data',
+            template:'NOT Delete'
+          });
+          $state.go('tab.admin-admin',[],{location:"replace",reload:true});
+
+        }
+
+      }).error(function(){
+
+        $ionicPopup.alert({
+          title:'ข้อมูลผู้ดูแลระบบ',
+          template:'ไม่สามารถทำการติดต่อเซิร์ฟเวอร์ได้'
+        });
+
+      })
+
+    }else{
+
+      $ionicPopup.alert({
+        title:'ข้อมูลผู้ดูแลระบบ',
+        template:'กรุณากรอกข้อมูลให้ครบ'
+      });
+
+    }
+
+  };
+  })
